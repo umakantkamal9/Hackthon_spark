@@ -6,8 +6,8 @@ import json
 response = requests.get("https://api.data.gov.in/resource/31f36e27-498d-4dd6-ae83-37bb1f8f5383?api-key=579b464db66ec23bdd000001cdd3946e44ce4aad7209ff7b23ac571b&format=json&offset=0&limit=50")
 x=response.content
 #Creating the DataFrame
-rdd_output = sc.textFile('/Users/uma_kamal/Desktop/POC/spark/spark-2.1.0-bin-hadoop2.7/x')
-df = sqlContext.read.json(rdd_output)
+df = spark.read.json('/Users/uma_kamal/Desktop/POC/spark/spark-2.1.0-bin-hadoop2.7/x')
 #Describe the DataFrame
-df.describe()
-
+df.printSchema()
+#Select rdd 
+RDD = df.select('active', 'created').rdd
